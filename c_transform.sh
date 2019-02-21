@@ -1,16 +1,15 @@
 #!/bin/bash
 
-if [ ! -f "$1" -o ! -d "$2" -o ! -d "$2/$3" ]; then
-  echo 'Specify an XSL stylesheet transform'
+if [ ! -d "$1" ]; then
+echo $1
   echo 'Specify the root directory of the web (absolute, or relative to cwd)'
-  echo 'Specify a destination directory relative to the root of the web'
   exit 1
 fi
 
-TRANSFORM="$1"
-ROOT_DIR="$2"
-DEST_REL_DIR="$3"
-DEST_DIR="${ROOT_DIR}/${DEST_REL_DIR}"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+TRANSFORM="${SCRIPT_DIR}/xslt/site.xsl"
+DEST_DIR="$1"
 
 while IFS= read -d $'\0' -r SRC_XML ; do
   DEST_HTML="${SRC_XML%'xml'}html"
@@ -20,6 +19,12 @@ while IFS= read -d $'\0' -r SRC_XML ; do
   fi
 done < <(find "${DEST_DIR}" -maxdepth 1 -iname '*.xml' -a -type f -print0)
 
-while IFS= read -d $'\0' -r DIR ; do
-  $0 "$TRANSFORM" "${DEST_DIR}" "${DIR##*/}"
-done < <(find "${DEST_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
+# while IFS= read -d $'\0' -r DIR ; do
+#   $0 "$TRANSFORM" "${DEST_DIR}" "${DIR##*/}"
+# done < <(find "${DEST_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
+
+cd "$DEST_DIR"
+cd ..
+WEB_DIR=`pwd`
+
+cp -r "$SCRIPT_DIR/assets" "$WEB_DIR" 
