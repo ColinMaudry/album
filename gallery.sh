@@ -86,7 +86,7 @@ if [ -d "$PREVIEW_DIR" -a -d "$THUMB_DIR" ]; then
     echo "$PREVIEW_XML"
     cat > "$PREVIEW_XML" <<EOF
 <?xml version='1.0' ?>
-<image-preview>
+<image-preview albumTitle="${SRC_REL_DIR##*/}">
   <thumbnail src="$DEST_THUMB"/>
   <image src="$DEST_PREVIEW"/>
   <full-size src="$SRC_IMAGE"/>
@@ -120,7 +120,7 @@ EOF
   echo "$INDEX_XML"
   cat > "$INDEX_XML" <<EOF
 <?xml version='1.0' ?>
-<album title="${DEST_REL_DIR##*/}">
+<album title="${SRC_REL_DIR##*/}">
 EOF
 
   # output parent
