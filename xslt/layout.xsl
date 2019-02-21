@@ -10,17 +10,8 @@ process source document elements below the root; otherwise, the stylesheet
 will process no such elements.
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:variable name="albumTitle">
-    <xsl:choose>
-      <xsl:when test="/album/@title">
-        <xsl:value-of select="/album/@title"></xsl:value-of>
-      </xsl:when>
-      <xsl:when test="/image-preview/@albumTitle">
-        <xsl:value-of select="/image-preview/@albumTitle"></xsl:value-of>
-      </xsl:when>
-      <xsl:otherwise></xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
+  <xsl:variable name="albumTitle" select="/*/@albumTitle" />
+  <xsl:variable name="albumPath" select="/*/@pathName" />
   <xsl:template name="head-content">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -45,7 +36,7 @@ will process no such elements.
               <xsl:value-of select="$albumTitle"></xsl:value-of>
             </strong>
           </a>
-          <a href="/{$albumTitle}.zip" class="btn btn-primary my-2">Télécharger toutes les photos</a>
+          <a href="/{$albumPath}/{$albumPath}.zip" class="btn btn-primary my-2">Télécharger toutes les photos</a>
         </div>
       </div>
     </header>
