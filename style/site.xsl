@@ -34,11 +34,6 @@ content and any internal structure of the body.
         </xsl:attribute>
       </link>
     </xsl:if>
-    <xsl:if test="/node()[@title!='']">
-      <title>
-        <xsl:value-of select="/node()/@title"/>
-      </title>
-    </xsl:if>
   </head>
   <body> 
     <xsl:call-template name="body-attributes"/>
