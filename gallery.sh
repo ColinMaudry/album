@@ -21,6 +21,7 @@ DEST_REL_DIR="$3"
 shift 3
 SOURCE_DIR="${ROOT_DIR}/${SRC_REL_DIR}"
 DEST_DIR="${ROOT_DIR}/${DEST_REL_DIR}"
+DEST_ZIP=$DEST_DIR/${SRC_REL_DIR}.zip
 PREVIEW_DIR="${DEST_DIR}/${PREVIEW_SUBDIR}"
 THUMB_DIR="${DEST_DIR}/${THUMB_SUBDIR}"
 
@@ -30,7 +31,10 @@ THUMB_DIR="${DEST_DIR}/${THUMB_SUBDIR}"
 if [ -d "$PREVIEW_DIR" -a -d "$THUMB_DIR" ]; then
   # make preview and thumbnail images
   PHOTO_COUNT=0
+
   while IFS= read -d $'\0' -r SRC_IMAGE ; do
+    zip -q -j -1 -u $DEST_ZIP $SRC_IMAGE
+
     CURF=${SRC_IMAGE##*/}
     DEST_PREVIEW="$PREVIEW_DIR/$CURF"
     DEST_THUMB="$THUMB_DIR/$CURF"
@@ -58,6 +62,8 @@ if [ -d "$PREVIEW_DIR" -a -d "$THUMB_DIR" ]; then
       -resize ${THUMB_SIZE}x${THUMB_SIZE} \
       "$DEST_IMAGE"
   fi
+
+
 
   # make sub-albums
   DIR_COUNT=0
