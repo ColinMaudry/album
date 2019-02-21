@@ -8,16 +8,16 @@
   </xsl:template> -->
   <xsl:template match="image-preview">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <xsl:apply-templates select="previous" />
         <xsl:apply-templates select="next" />
       </div>
-      <div class="col-md-9">
+      <div class="col-md-10">
         <xsl:apply-templates select="image" />
       </div>
     </div>
     <div class="row">
-      <div class="col-md-9 offset-md-3 controls">
+      <div class="col-md-10 offset-md-2 controls">
         <a>
           <xsl:attribute name="href">
             <xsl:value-of select="index/@loc" />
@@ -103,9 +103,11 @@
     </div>
   </xsl:template>
   <xsl:template match="album">
-    <xsl:apply-templates select="parent" />
-    <xsl:apply-templates select="sub-album" />
-    <xsl:apply-templates select="preview" />
+    <div class="row">
+      <xsl:apply-templates select="parent" />
+      <xsl:apply-templates select="sub-album" />
+      <xsl:apply-templates select="preview" />
+    </div>
   </xsl:template>
   <xsl:template match="preview">
     <div class="col-md-3">
