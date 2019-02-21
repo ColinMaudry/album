@@ -97,7 +97,7 @@ EOF
       PREVIOUS_REF=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "${PREVIOUS}")
       cat >> "$PREVIEW_XML" <<EOF
   <previous loc="${PREVIOUS_REF%.*}.html">
-    <thumbnail src="$THUMB_SUBDIR/$PREVIOUS_REF"/>
+    <thumbnail src="$THUMB_SUBDIR/$PREVIOUS_REF">&lt;&lt;</thumbnail>
   </previous>
 EOF
     fi

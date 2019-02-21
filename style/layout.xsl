@@ -9,7 +9,7 @@ The third template, body-content may contain an <apply-templates/> to
 process source document elements below the root; otherwise, the stylesheet
 will process no such elements.
 -->
-<xsl:stylesheet version='1.0' xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template name="head-content">
   <link rel="stylesheet" type="text/css" href="/style/site.css"/>

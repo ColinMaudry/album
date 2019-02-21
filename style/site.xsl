@@ -5,7 +5,7 @@ the site.  Invoke this one against site markup.  It provides a basic
 html document structure.  Use the layout stylesheet to customize the head
 content and any internal structure of the body.
 -->
-<xsl:stylesheet version='1.0' 
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:import href="lineage.xsl"/>
