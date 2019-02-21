@@ -41,24 +41,11 @@ will process no such elements.
       </div>
     </header>
     <main role="main">
-      <xsl:choose>
-        <xsl:when test="/album">
-          <div class="album py-5 bg-light">
-            <div class="container-fluid">
-              <div class="row">
-                <xsl:apply-templates />
-              </div>
-            </div>
-          </div>
-        </xsl:when>
-        <xsl:otherwise>
-          <div class="album py-5 bg-light">
-            <div class="container-fluid">
-              <xsl:apply-templates />
-            </div>
-          </div>
-        </xsl:otherwise>
-      </xsl:choose>
+      <div class="album py-5 bg-light">
+        <div class="container-fluid">
+          <xsl:apply-templates />
+        </div>
+      </div>
     </main>
   </xsl:template>
 </xsl:stylesheet>
