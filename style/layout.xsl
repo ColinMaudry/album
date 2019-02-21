@@ -21,7 +21,7 @@ will process no such elements.
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-<xsl:template name="head-content">
+  <xsl:template name="head-content">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Bootstrap CSS -->
@@ -30,8 +30,9 @@ will process no such elements.
     <title>
       <xsl:value-of select="$albumTitle"></xsl:value-of>
     </title>
-
-<xsl:template name="body-content">
+  </xsl:template>
+  <xsl:template name="body-attributes" />
+  <xsl:template name="body-content">
     <header>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
@@ -44,6 +45,7 @@ will process no such elements.
               <xsl:value-of select="$albumTitle"></xsl:value-of>
             </strong>
           </a>
+          <a href="/{$albumTitle}.zip" class="btn btn-primary my-2">Télécharger toutes les photos</a>
         </div>
       </div>
     </header>
