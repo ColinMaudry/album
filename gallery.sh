@@ -14,11 +14,11 @@ if [ ! -d "$1" ]; then
   exit 1
 fi
 
-SOURCE_DIR="$1"
+SOURCE_DIR="${1%/}"
 CURRENT_DIR="`pwd`"
 
-ALBUM_TITLE=${SOURCE_DIR##*/}
-DEST_DIR_NAME=${ALBUM_TITLE//[ \'\.]/-}
+ALBUM_TITLE="${SOURCE_DIR##*/}"
+DEST_DIR_NAME="${ALBUM_TITLE//[ \'\.]/-}"
 
 cd "$SOURCE_DIR"
 cd ..
@@ -30,10 +30,16 @@ mkdir -p "$DEST_DIR"
 
 cd "$CURRENT_DIR"
 
+# Debug
+# echo "$ALBUM_TITLE"
+# echo "$DEST_DIR_NAME"
+# echo "$SOURCE_DIR"
+# echo "$DEST_DIR"
+# echo "$WEB_DIR"
+# echo ""
 
 
-
-DEST_ZIP=$DEST_DIR/${DEST_DIR_NAME}.zip
+DEST_ZIP="$DEST_DIR/${DEST_DIR_NAME}.zip"
 PREVIEW_DIR="${DEST_DIR}/${PREVIEW_SUBDIR}"
 THUMB_DIR="${DEST_DIR}/${THUMB_SUBDIR}"
 ORIGINAL_DIR="${DEST_DIR}/${ORIGINAL_SUBDIR}"
