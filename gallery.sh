@@ -15,6 +15,7 @@ if [ ! -d "$1" ]; then
 fi
 
 SOURCE_DIR="${1%/}"
+echo "source dir: $SOURCE_DIR"
 CURRENT_DIR="`pwd`"
 
 ALBUM_TITLE="${SOURCE_DIR##*/}"
@@ -23,7 +24,7 @@ DEST_DIR_NAME="${ALBUM_TITLE//[ \'\.]/-}"
 cd "$SOURCE_DIR"
 cd ..
 
-WEB_DIR="`pwd`/web/"
+WEB_DIR="${SOURCE_DIR}/web/"
 DEST_DIR="${WEB_DIR}${DEST_DIR_NAME}"
 
 mkdir -p "$DEST_DIR"
@@ -54,13 +55,13 @@ if [ -d "$PREVIEW_DIR" -a -d "$THUMB_DIR" ]; then
   PHOTO_COUNT=0
 
   while IFS= read -d $'\0' -r SRC_IMAGE ; do
-    zip -j -1 -u $DEST_ZIP "$SRC_IMAGE"
+    zip -j -1 -u "$DEST_ZIP" "$SRC_IMAGE"
 
     CURF=${SRC_IMAGE##*/}
     DEST_PREVIEW="$PREVIEW_DIR/$CURF"
     DEST_THUMB="$THUMB_DIR/$CURF"
     DEST_ORIGINAL="$ORIGINAL_DIR/$CURF"
-    
+
     cp "$SRC_IMAGE" "$DEST_ORIGINAL"
 
     [ "$SRC_IMAGE" -nt "$DEST_PREVIEW" ] && echo "$DEST_PREVIEW" && convert "$SRC_IMAGE" \
@@ -97,17 +98,17 @@ if [ -d "$PREVIEW_DIR" -a -d "$THUMB_DIR" ]; then
   #  $0 "$ROOT_DIR" "$SRC_REL_DIR/$DIR" "$DEST_REL_DIR/$DIR" "${DEST_REL_DIR##*/}"
   #  DIR_LIST[$DIR_COUNT]="$DIR"
   #  DIR_COUNT=$((DIR_COUNT+1))
-  #done < <(find -L "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z) 
+  #done < <(find -L "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
 
   # output preview pages
-  for (( CUR_PHOTO=0 ; $CUR_PHOTO < $PHOTO_COUNT ; CUR_PHOTO=$((CUR_PHOTO+1)) )) do
+  for (( CUR_PHOTO=0 ; "$CUR_PHOTO" < $PHOTO_COUNT ; CUR_PHOTO=$((CUR_PHOTO+1)) )) do
     CUR_PHOTO_NAME=${PHOTO_LIST[$CUR_PHOTO]}
     CUR_PHOTO_REF=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "${CUR_PHOTO_NAME}")
     SRC_IMAGE="$ORIGINAL_SUBDIR/$CUR_PHOTO_REF"
     DEST_PREVIEW="$PREVIEW_SUBDIR/$CUR_PHOTO_REF"
     DEST_THUMB="$THUMB_SUBDIR/$CUR_PHOTO_REF"
-    NAME=${CUR_PHOTO_NAME%.*}
-    PREVIEW_XML=$DEST_DIR/$NAME.xml
+    NAME="${CUR_PHOTO_NAME%.*}"
+    PREVIEW_XML="$DEST_DIR/$NAME.xml"
     echo "$PREVIEW_XML"
     cat > "$PREVIEW_XML" <<EOF
 <?xml version='1.0' ?>
@@ -117,7 +118,7 @@ if [ -d "$PREVIEW_DIR" -a -d "$THUMB_DIR" ]; then
   <full-size src="$SRC_IMAGE"/>
   <index loc="$INDEX_NAME.html#photo$CUR_PHOTO"/>
 EOF
-    if [ $CUR_PHOTO -gt 0 ]; then
+    if [ "$CUR_PHOTO" -gt 0 ]; then
       PREVIOUS=${PHOTO_LIST[(($CUR_PHOTO-1))]}
       PREVIOUS_REF=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "${PREVIOUS}")
       cat >> "$PREVIEW_XML" <<EOF
@@ -189,4 +190,3 @@ EOF
 else
   echo 'failed to create scaled image directory. file in the way?'
 fi
-
