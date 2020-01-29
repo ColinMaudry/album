@@ -1,4 +1,4 @@
-# Album maker
+# Album maker 0.1.0
 
 Scripts to prepare the pictures of a folder for Web publiction (thumbnails and Web interface).
 
